@@ -30,3 +30,22 @@ Route::get('/logout', 'FrontController@logout');
 Route::get('/cart', 'FrontController@cart');
 Route::get('/checkout', 'FrontController@checkout');
 Route::get('/search/{query}', 'FrontController@search');
+
+/*========== Dashboard ==========*/
+Route::get('/admin','DashboardController@dashboard')->name('admin');
+
+
+/*add product*/
+Route::get('/admin/addProduct','ProductController@create')->name('addProduct');
+Route::post('/admin/addProduct','ProductController@store')->name('addProduct.store');
+
+/* All Product*/
+Route::get('/admin/product','ProductController@index')->name('product');
+
+/*Edit Product*/
+Route::get('/admin/{product}/edit','ProductController@edit')->name('editProduct');
+Route::patch('/admin/{product}/edit','ProductController@update')->name('updateProduct');
+
+/*Delete*/
+Route::delete('/admin/{product}/delete','ProductController@destroy')->name('deleteProduct');
+
