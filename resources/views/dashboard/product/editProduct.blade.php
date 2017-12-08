@@ -100,22 +100,19 @@
                                             <label>Thumbnail</label>
                                             <input type="file" name="image">
                                         </div>
-                                         <div class="form-group">
-                                            <p> {{$product->image}}</p>
-                                            {{-- @if (count($filename1) != 0) --}}
-                                                <img width="100" height="100" src="{{asset($product->image)}}">
-                                            {{-- @endif --}}
-                                        </div>
                                         
+                                        @if (count($product->image) != 0)
+                                            <div class="form-group">
+                                                <p> {{$product->image}}</p>
+                                                {{-- @if (count($filename1) != 0) --}}
+                                                <img width="100" height="100" src="{{asset($product->image)}}">
+                                                {{-- @endif --}}
+                                            </div>
+                                        @endif
+                                         
                                         <div class="form-group">
                                             <label>Gallery Image <p> {{$product->img_gallery}}</p></label>
                                             <input type="file" name="img_gallery">
-                                        </div>
-                                        <div class="form-group">
-                                            
-                                            {{-- @if (count($filename1) != 0) --}}
-                                            <img width="100" height="100" src="{{asset($product->img_gallery)}}">
-                                            {{-- @endif --}}
                                         </div>
                                     </form>
                                 </div>

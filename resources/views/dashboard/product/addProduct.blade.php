@@ -51,7 +51,7 @@
                                         @foreach ($sizes as $size)
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" value="">{{$size->name}}
+                                                    <input name="size_id" type="checkbox" value="{{$size->id}}">{{$size->name}}
                                                 </label>
                                             </div>
                                         @endforeach
@@ -116,12 +116,6 @@
                                     <label>Thumbnail</label>
                                     <input type="file" name="image">
                                 </div>
-                                <div class="form-group">
-                                    {{-- @if (count($filename1) != 0) --}}
-                                    <img width="100" height="100" src="{{asset('storage/upload/sslaravel.png')}}">
-                                    {{-- @endif --}}
-                                </div>
-
                                 <div class="form-group">
                                     <label>Gallery Image</label>
                                     <input type="file" name="img_gallery">

@@ -19,4 +19,19 @@ class Product extends Model
     	'height'
 
     ];
+
+    public function category(){
+
+        return $this->belongsToMany('App\Models\Category');
+    }
+
+    public function color(){
+
+        return $this->belongsToMany('App\Models\Color');
+    }
+
+    public function size(){
+
+        return $this->belongsToMany('App\Models\size');
+    }
 }

@@ -7,6 +7,9 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Size;
 use App\Models\Color;
+use App\Models\ProductCategory;
+use App\Models\ProductSize;
+use App\Models\ProductColor;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -39,8 +42,25 @@ class ProductController extends Controller
 
     public function store(Request $request){
 
-        $path       = 'storage/upload/';
-        $product    = new Product;
+        $id_product     = DB::table('products')->get();
+
+        $path               = 'storage/upload/';
+        $product            = new Product;
+        $productCategory    = new ProductCategory;
+        $productColor       = new ProductColor;
+        $productSize        = new ProductSize;
+
+        /*===== Pivot ProductCategory =====*/
+        // $productCategory->product_id  = $request->product_id;
+        // $productCategory->category_id = $request->category_id;
+        // $productCategory->save();
+
+        /*===== Pivot ProductColor =====*/
+        // $productColor->product_id  = $request->product_id;
+        // $ProductColor->color_id    = $request->color_id;
+        // $ProductColor->save();
+
+        
         
 
         $product->name        = $request->name;
@@ -71,9 +91,16 @@ class ProductController extends Controller
 
         $product->save();
 
-        $data = array($categories,$colors, $sizes);
+        /*===== Pivot Product_Size =====*/
+        foreach ($variable as $key => $value) {
+            # code...
+        }
+        $productSize->product_id  = $product->id;
+        $productSize->size_id     = $request->size_id;
+        $productSize->save();
 
-        return redirect()->route('editProduct',$product->id)->compact('colors'); //after create, redirect to edit page
+
+        return redirect()->route('editProduct',$product->id);//->compact('colors'); //after create, redirect to edit page
     }
 
     public function edit(Product $product){

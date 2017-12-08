@@ -33,7 +33,17 @@
 
                                     <tr class="odd gradeX">
                                         <td>
-                                            <img src="{{asset($product->image)}}" height="50" width="70" style="float: left; padding-left: 10px; padding-right: 10px;">
+                                            @if (count($product->image) != 0)
+                                                <div class="form-group">
+                                                    <img height="50" width="70" style="float: left; padding-left: 10px; padding-right: 10px;" src="{{asset($product->image)}}">
+                                                </div>
+                                            @else
+                                                <div class="form-group">
+                                                    <p> {{$product->image}}</p>
+                                                    <img height="50" width="70" style="float: left; padding-left: 10px; padding-right: 10px;" src="{{asset('assets/images/noimg.png')}}">
+                                                </div>
+                                            @endif
+
                                             <b><a href="{{route('editProduct',$product->id)}}">{{ $product->name }}</a></b><br>
                                             <small>
                                                     <a style="float: left;" href="{{route('editProduct',$product->id)}}">Edit | </a>
