@@ -25,28 +25,56 @@
                                         {{ method_field('PATCH') }}
 
                                         <div class="col-lg-8">
-                                        <div class="form-group">
-                                            <label>Product name</label>
-                                            <input name="name" value="{{$product->name}}" class="form-control">
-                                            <p class="help-block">Example block-level help text here.</p>
+                                            <div class="form-group">
+                                                <label>Product name</label>
+                                                <input name="name" value="{{$product->name}}" class="form-control">
+                                                <p class="help-block">Example block-level help text here.</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Product Description</label>
+                                                <textarea name="desc" rows="25" class="form-control" placeholder="Enter text" >{{$product->desc}}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Short Description</label>
+                                                <textarea name="short_desc" rows="5" class="form-control" placeholder="Enter text" >{{$product->short_desc}}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Price</label>
+                                                <input name="price" value="{{$product->price}}" type="number" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Discount Price</label>
+                                                <input name="discount" value="{{$product->discount}}" type="number" class="form-control">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group scrollcat">
+                                                    <label>Size</label>
+                                                    @foreach ($sizes as $size)
+                                                        
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input name="size_id" type="checkbox" value="{{$size->id}}">{{$size->name}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group scrollcat">
+                                                    <label>Color</label>
+                                                    
+                                                    @foreach ($colors as $color)
+                                                        <div class="checkbox">
+                                                        <label>
+                                                            <input name="color_id" type="checkbox" value="">{{$color->name}}
+                                                        </label>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Product Description</label>
-                                            <textarea name="desc" rows="25" class="form-control" placeholder="Enter text" >{{$product->desc}}</textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Short Description</label>
-                                            <textarea name="short_desc" rows="5" class="form-control" placeholder="Enter text" >{{$product->short_desc}}</textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Price</label>
-                                            <input name="price" value="{{$product->price}}" type="number" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Discount Price</label>
-                                            <input name="discount" value="{{$product->discount}}" type="number" class="form-control">
-                                        </div>
-                                        </div>
+
+                                        
                                     
                                 
                                 <!-- /.col-lg-6 (nested) -->
@@ -78,24 +106,52 @@
                                             <label>Height</label>
                                             <input name="height" value="{{$product->height}}" type="number" class="form-control">
                                         </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
+                                            <div class="form-group scrollcat">
+                                                <label>Categories</label>
+                                                    @for ($x=0; $x<count($product->categories); $x++)
+                                                <div class="checkbox">
+
+                                                        <label>
+                                                            <input name="category_id" type="checkbox" value="$product->categories[$x]->id" checked >{{$product->categories[$x]->name}}
+                                                        </label>    
+                                                </div>
+
+                                                    @endfor    
                                             </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
+                                            {{-- ===================================================== --}}
+                                            <div class="form-group scrollcat">
+                                                <label>Cactegoies Now</label>
+                                                
+                                            @for ($i = 0; $i < count($categories) ; $i++)
+                                                {{-- <div class="checkbox"> --}}
+                                                    {{-- @for ($x=0; $x<count($product->categories); $x++)
+                                                        {{ $product->categories[$x]->id }}
+                                                    @endfor --}}
+                                                    {{-- @if ($i < count($product->categories)) --}}
+                                                        @if ($product->categories[2]->id == $categories[$i]->id)
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input checked name="category_id" type="checkbox" value="$categories[$i]->id" >{{$categories[$i]->name}}
+                                                                </label>
+                                                            </div>    
+                                                        {{-- @endif --}}
+                                                    
+                                                    @else
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input name="category_id" type="checkbox" value="$categories[$i]->id" >{{$categories[$i]->name}}
+                                                            </label>
+                                                        </div>
+                                                    @endif
+                                                    {{-- <label>
+
+                                                        <input @if ($product->categories[$x]->id == $categories[$i]->id)
+                                                            {{'checked'}}
+                                                        @endif name="category_id" type="checkbox" value="$categories[$i]->id" >{{$categories[$i]->name}}
+                                                    </label>
+                                                </div>  --}}   
+                                                @endfor
                                             </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3 {{$product->short_desc}} 
-                                                </label>
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <label>Thumbnail</label>
                                             <input type="file" name="image">
@@ -130,5 +186,4 @@
         </div>
         <!-- /#page-wrapper -->
 {{-- ===================================================================== --}}
-
 @endsection

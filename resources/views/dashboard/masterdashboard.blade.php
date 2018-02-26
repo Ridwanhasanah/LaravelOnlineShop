@@ -10,6 +10,8 @@
     <meta name="author" content="">
 
     <title>One Larashop</title>
+    {{-- onelarashop --}}
+    <link href="{{asset('css/onelarashop.css')}}" rel="stylesheet">
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('dashboard/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">

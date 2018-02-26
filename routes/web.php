@@ -13,11 +13,11 @@
 /*Route::get('/', function(){
 	return view('layouts.layout');
 });*/
-Route::get('/', 'FrontController@index');
+Route::get('/', 'FrontController@index')->name('/');
 
 Route::get('/home', 'FrontController@index');
-Route::get('/products', 'FrontController@products');
-Route::get('/products/details/{id}', 'FrontController@product_details');
+Route::get('/products', 'FrontController@products')->name('products');
+Route::get('/products/details/{product}', 'FrontController@product_details')->name('product.detail');
 Route::get('/products/categories', 'FrontController@product_categories');
 Route::get('/products/brands', 'FrontController@product_brands');
 
@@ -48,4 +48,6 @@ Route::patch('/admin/{product}/edit','ProductController@update')->name('updatePr
 
 /*Delete*/
 Route::delete('/admin/{product}/delete','ProductController@destroy')->name('deleteProduct');
+
+Route::get('/test','ProductController@test');
 

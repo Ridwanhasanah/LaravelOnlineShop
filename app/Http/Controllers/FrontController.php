@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class FrontController extends Controller
 {
@@ -19,18 +21,26 @@ class FrontController extends Controller
 
     public function index(){
 
-    	return view('onlineShop.home');//view('home', arrya('page' => 'home'));
+        $products = Product::orderBy('created_at','desc')->get();
+        $recommended = Product::inRandomOrder()->get();
+
+    	return view('onlineShop.home',compact('products','recommended'));//view('home', arrya('page' => 'home'));
     }
 
     public function products(){
-    	
-    	return view('onlineShop.products');//view('products', array('page'=> 'products'));
+
+        $products   = Product::latest()->paginate(9);//$products = DB::table('products')->get();
+    	$categories  = DB::table('categories')->get();
+
+    	return view('onlineShop.products',compact('products','categories') );//view('products', array('page'=> 'products'));
 
     }
 
-    public function product_details($id){
+    public function product_details(Product $product){
 
-    	return view('onlineShop.product_details');//view('products_details', array('page'=> 'products'));
+        $recommended = Product::inRandomOrder()->get();
+
+    	return view('onlineShop.product_details',compact('product','recommended'));//view('products_details', array('page'=> 'products'));
     }
 
     public function product_categories($name){

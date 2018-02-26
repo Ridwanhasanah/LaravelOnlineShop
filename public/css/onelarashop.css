@@ -1,0 +1,5 @@
+.scrollcat{
+	overflow: auto;
+	min-height: 42px;
+	max-height: 200px;
+}

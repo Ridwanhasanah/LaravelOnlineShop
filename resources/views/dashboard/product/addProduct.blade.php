@@ -46,9 +46,10 @@
                                 </div>
 
                                 <div class="col-lg-6">
-                                    <div class="form-group">
+                                    <div class="form-group scrollcat">
                                         <label>Size</label>
                                         @foreach ($sizes as $size)
+                                            
                                             <div class="checkbox">
                                                 <label>
                                                     <input name="size_id" type="checkbox" value="{{$size->id}}">{{$size->name}}
@@ -58,13 +59,13 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-group">
+                                    <div class="form-group scrollcat">
                                         <label>Color</label>
                                         
                                         @foreach ($colors as $color)
                                             <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="">{{$color->name}}
+                                                <input name="color_id" type="checkbox" value="">{{$color->name}}
                                             </label>
                                         </div>
                                         @endforeach
@@ -102,12 +103,12 @@
                                     <label>Height</label>
                                     <input name="height" value="{{old('height')}}" type="number" class="form-control">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group scrollcat">
                                     <label>Category</label>
                                     @foreach ( $categories as $category)
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="">{{$category->name}}
+                                                <input name="category_id" type="checkbox" value="">{{$category->name}}
                                             </label>
                                         </div>    
                                     @endforeach

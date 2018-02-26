@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-   
+
     /*===== index =====*/
     public function index(){
 
@@ -30,6 +30,7 @@ class ProductController extends Controller
         $colors     = DB::table('colors')->get();
         $sizes      = DB::table('sizes')->get();
         $categories = DB::table('categories')->get();
+   
 
         //return view('user.index', ['users' => $users]);
 
@@ -49,19 +50,6 @@ class ProductController extends Controller
         $productCategory    = new ProductCategory;
         $productColor       = new ProductColor;
         $productSize        = new ProductSize;
-
-        /*===== Pivot ProductCategory =====*/
-        // $productCategory->product_id  = $request->product_id;
-        // $productCategory->category_id = $request->category_id;
-        // $productCategory->save();
-
-        /*===== Pivot ProductColor =====*/
-        // $productColor->product_id  = $request->product_id;
-        // $ProductColor->color_id    = $request->color_id;
-        // $ProductColor->save();
-
-        
-        
 
         $product->name        = $request->name;
         $product->desc        = $request->desc;
@@ -83,33 +71,56 @@ class ProductController extends Controller
             /*Memasukan nama ke database*/
             $product->image = $path.$filename1;
 
-            // $filename2 = $request->img_gallery->getClientOriginalName();
-            // $request->img_gallery->storeAs('public/upload',$filename2);
-            // /*Memasukan nama ke database*/
-            // $product->img_gallery = $path.$filename1;
+            $filename2 = $request->img_gallery->getClientOriginalName();
+            $request->img_gallery->storeAs('public/upload',$filename2);
+            /*Memasukan nama ke database*/
+            $product->img_gallery = $path.$filename1;
         }else{}
 
         $product->save();
 
         /*===== Pivot Product_Size =====*/
-        foreach ($variable as $key => $value) {
-            # code...
-        }
-        $productSize->product_id  = $product->id;
-        $productSize->size_id     = $request->size_id;
-        $productSize->save();
+        // $sizes      = DB::table('sizes')->get();
+        // foreach ($sizes as $size) {
+            
+            // $productSize->product_id  = $product->id;
+            // $productSize->size_id     = $size_id;
+            // $productSize->save();    
+        // }
+        
+        /*===== Pivot ProductCategory =====*/
+        $productCategory->product_id  = $request->product_id;
+        $productCategory->category_id = $request->category_id;
+        $productCategory->save();
 
+        /*===== Pivot ProductColor =====*/
+        $productColor->product_id  = $request->product_id;
+        $ProductColor->color_id    = $request->color_id;
+        $ProductColor->save();
 
         return redirect()->route('editProduct',$product->id);//->compact('colors'); //after create, redirect to edit page
     }
 
+
+    /*========== Edit Update ==========*/
+
     public function edit(Product $product){
 
-        return view('dashboard.product.editProduct',compact('product'));
+        $colors     = DB::table('colors')->get();
+        $sizes      = DB::table('sizes')->get();
+        $categories = DB::table('categories')->get();
+
+        $prod = new Product;
+        // $product2 = \App\Models\Product::where('id', $product)->first();
+        $product2 = Product::get();
+
+        return view('dashboard.product.editProduct',compact('product2','product','colors','categories','sizes','prod'));
 
     }
 
     public function update(Product $product){
+
+
 
         // $product = Product::find($product);
         
@@ -150,6 +161,13 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('product');
+    }
+
+    public function test(){
+
+        $product = DB::table('products')->first();
+
+        return view('dashboard.product.test', compact('product'));
     }
 
 }
